@@ -63,17 +63,17 @@ const persistir = async (req, res) => {
 }
 
 const create = async (dados, res) => {
-  let { nome } = dados;
+  let { nome, cpfcnpj, email, telefone } = dados;
 
-  let categoriaExistente = await Usuario.findOne({
+  let usuarioExistente = await Usuario.findOne({
     where: {
-      nome
+      cpfcnpj
     }
   });
 
-  if (categoriaExistente) {
+  if (usuarioExistente) {
     return res.status(400).send({
-      message: 'Já existe uma usuario cadastrada com esse nome'
+      message: 'Já existe um usuario cadastrado com esse CPF/CNPJ'
     })
   }
 

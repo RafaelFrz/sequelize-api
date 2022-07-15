@@ -1,9 +1,9 @@
-// import Categoria from "./Categoria";
-// import Autor from "./Autor";
-// import Livro from "./Livro";
-// import Usuario from "./Usuario";
-// import Emprestimo from "./Emprestimo";
-// import EmprestimoLivro from "./EmprestimoLivro"
+import Categoria from "./Categoria";
+import Autor from "./Autor";
+import Livro from "./Livro";
+import Usuario from "./Usuario";
+import Emprestimo from "./Emprestimo";
+import EmprestimoLivro from "./EmprestimoLivro"
 
 (async () => {
   // await Categoria.sync({ force: true });
