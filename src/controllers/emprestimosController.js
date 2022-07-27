@@ -6,7 +6,9 @@ import { Op } from "sequelize";
 
 const getAll = async (req, res) => {
    try {
-      const emprestimos = await Emprestimo.findAll();
+      const emprestimos = await Emprestimo.findAll({
+	include: ['usuario']
+      });
       let response = [];
       for (let emprestimo of emprestimos) {
          let livros = await emprestimo.getLivros();
@@ -148,7 +150,7 @@ const deletar = async (req, res) => {
    try {
       let { id } = req.body;
       //garante que o id só vai ter NUMEROS;
-      id = id ? id.replace(/\D/g, '') : null;
+      id = id ? id.toString().replace(/\D/g, '') : null;
       if (!id) {
          return res.status(400).send({
             message: 'Informe um id válido para deletar o emprestimo'
@@ -189,7 +191,7 @@ const emprestado = async (req, res) => {
 
       let livro = await Livro.findOne({
          where: {
-            id: idLivro,
+            id: idLivro
          }
       });
 
@@ -205,13 +207,13 @@ const emprestado = async (req, res) => {
          }
       });
 
-      if (!emprestimos.lenght) {
+      if (!emprestimos.length) {
          return res.status(200).send({ message: 'Esse livro está disponível para emprestimo.' })
       }
 
       return res.status(200).send({
          message: 'Esse livro não está disponível para empréstimo',
-         emprestimo
+         emprestimos
       })
    } catch (error) {
       return res.status(500).send({

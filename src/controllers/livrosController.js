@@ -5,7 +5,9 @@ import Livro from "../models/Livro";
 
 const getAll = async (req, res) => {
   try {
-    const livros = await Livro.findAll();
+    const livros = await Livro.findAll({
+	include: ['autor', 'categoria']	    
+    });
     return res.status(200).send(livros);
   } catch (error) {
     return res.status(500).send({
@@ -19,7 +21,7 @@ const getById = async (req, res) => {
     let { id } = req.params;
 
     //garante que o id só vai ter NUMEROS;
-    id = id.replace(/\D/g, '');
+    id = id.toString().replace(/\D/g, '');
     if (!id) {
       return res.status(400).send({
         message: 'Informe um id válido para consulta'
@@ -113,7 +115,7 @@ const deletar = async (req, res) => {
   try {
     let { id } = req.body;
     //garante que o id só vai ter NUMEROS;
-    id = id ? id.replace(/\D/g, '') : null;
+    id = id ? id.toString().replace(/\D/g, '') : null;
     if (!id) {
       return res.status(400).send({
         message: 'Informe um id válido para deletar o livro'

@@ -19,7 +19,7 @@ const getById = async (req, res) => {
     let { id } = req.params;
 
     //garante que o id só vai ter NUMEROS;
-    id = id.replace(/\D/g, '');
+    id = id.toString().replace(/\D/g, '');
     if (!id) {
       return res.status(400).send({
         message: 'Informe um id válido para consulta'
@@ -112,7 +112,7 @@ const deletar = async (req, res) => {
     let { id } = req.body;
     //garante que o id só vai ter NUMEROS;
     id = id.toString();
-    id = id ? id.replace(/\D/g, '') : null;
+    id = id ? id.toString().replace(/\D/g, '') : null;
     if (!id) {
       return res.status(400).send({
         message: 'Informe um id válido para deletar a usuario'
